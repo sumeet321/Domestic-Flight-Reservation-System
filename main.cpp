@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <sstream>
 #include <cstdlib>
 #include <ctime>
 using namespace std;
@@ -27,7 +28,6 @@ int main()
   int timing; //assigned to numbers 1-8
   string atime; // displays the departing time
   int referenceNum;
-  fstream file;
 
   do
   {
@@ -115,8 +115,7 @@ int main()
       srand(time(0)); // generates random numbers every time
       referenceNum = rand() % 1000000;
       cout << "Flight reference number is " << referenceNum << endl << endl;
-
-      ofstream(name + ".txt");
+      ofstream file(name + ".txt");
       file << name << endl << referenceNum << endl << atime << endl << departDate << " to " << returnDate << endl << departingAir << " (-->) " << destinationAir;
       file.close();
       }
@@ -133,6 +132,7 @@ int main()
 
   case 2:
     int cancelNum;
+    
     cout << "Enter Reference Number: ";
     cin >> cancelNum;
     cout << endl;
@@ -155,9 +155,22 @@ int main()
     
   case 3:
     int num;
+    string show;
     cout << "Enter reference number: ";
     cin >> num;
     cout << endl;
+    /*if (num == referenceNumString)
+    {
+      ifstream file(referenceNumString + ".txt");
+      getline(file, num);
+      while(!file.eof())
+      {
+        getline(file, show);
+        cout << show;
+        file.close();
+      }
+    }*/
+    
     if(num != referenceNum)
     {
       cout << "Flight does not exist!" << endl << endl;
@@ -170,10 +183,10 @@ int main()
       }
       else
       {
-      cout << "Hello, " << name << "! Flight #" << referenceNum << " is booked " << "at " << atime << " from " << departDate << " to " << returnDate << " " << "(" << departingAir << " --> " << destinationAir << ")"; 
+        cout << "Hello, " << name << "! Flight #" << referenceNum << " is booked " << "at " << atime << " from " << departDate << " to " << returnDate << " " << "(" << departingAir << " --> " << destinationAir << ")"; 
       cout << endl << endl;
     }}
-  break;
+    break;
   }
   } while (choice != 4);
   return 0;
